@@ -1,13 +1,142 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <title>DeveloperJobs</title>
 </head>
 <body>
-    JOBS
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+        <img src="/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        DeveloperJobs
+    </a>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="#">Mailing List</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fa fa-twitter"></i></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fa fa-linkedin"></i></a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container">
+
+    <div class="card mt-5 mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Détails du job</h5>
+            <form>
+                <div class="form-group">
+                    <label for="position">Position<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="position" placeholder="Intitulé de l'emploi" required name="position">
+                </div>
+                <div class="form-group">
+                    <label for="location">Location<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="location" placeholder="Location de l'emploi" required name="location">
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="isRemoteFriendly" name="isRemoteFriendly">
+                    <label class="form-check-label" for="isRemoteFriendly">Remote friendly</label>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description<span class="text-danger">*</span></label>
+                    <textarea name="description" class="form-check-input editor" id="description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="responsabilities">Responsabilités</label>
+                    <textarea name="responsabilities" class="form-check-input editor2" id="responsabilities" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="requirements">Compétences</label>
+                    <textarea name="requirements" class="form-check-input editor3" id="requirements" required></textarea>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-center">Made with <i class="fa fa-heart" style="color: red"></i> by <a href="http://sylvain.alwaysdata.net/">Joly Sylvain</a></p>
+    </div>
+</footer>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/12.3.1/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '.editor' ), {
+            toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
+            heading: {
+                options: [
+                    { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                    { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                    { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
+                ]
+            }
+        } )
+        .catch( error => {
+        console.log( error );
+    } );
+
+    ClassicEditor
+        .create( document.querySelector( '.editor2' ), {
+            toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
+            heading: {
+                options: [
+                    { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                    { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                    { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
+                ]
+            }
+        } )
+        .catch( error => {
+        console.log( error );
+    } );
+
+    ClassicEditor
+        .create( document.querySelector( '.editor3' ), {
+            toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
+            heading: {
+                options: [
+                    { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                    { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                    { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
+                ]
+            }
+        } )
+        .catch( error => {
+        console.log( error );
+    } );
+</script>
 </body>
 </html>
