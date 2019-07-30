@@ -10,7 +10,9 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
           integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-
+    <!-- Include Choices CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+    <!-- Include Choices JavaScript -->
     <title>DeveloperJobs</title>
 </head>
 <body>
@@ -40,15 +42,23 @@
 
     <div class="card mt-5 mb-3">
         <div class="card-body">
-            <h5 class="card-title">Détails du job</h5>
+            <h5 class="card-title text-center">Création d'une annonce</h5>
             <form>
                 <div class="form-group">
                     <label for="position">Position<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="position" placeholder="Intitulé de l'emploi" required name="position">
+                    <input type="text" class="form-control" id="position" placeholder="Intitulé du poste" required name="position">
                 </div>
                 <div class="form-group">
-                    <label for="location">Location<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="location" placeholder="Location de l'emploi" required name="location">
+                    <label for="location">Localisation<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="location" placeholder="Localisation du poste" required name="location">
+                </div>
+                <div class="form-group">
+                    <label for="companyName">Entreprise<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="companyName" placeholder="Nom de l'entreprise" required name="companyName">
+                </div>
+                <div class="form-group">
+                    <label for="companyUrl">Lien du site de l'entreprise</label>
+                    <input type="text" class="form-control" id="companyUrl" placeholder="Lien vers le site de l'entreprise" name="companyUrl">
                 </div>
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" id="isRemoteFriendly" name="isRemoteFriendly">
@@ -59,15 +69,144 @@
                     <textarea name="description" class="form-check-input editor" id="description" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="responsabilities">Responsabilités</label>
+                    <label for="responsabilities">Responsabilités<span class="text-danger">*</span></label>
                     <textarea name="responsabilities" class="form-check-input editor2" id="responsabilities" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="requirements">Compétences</label>
+                    <label for="requirements">Compétences<span class="text-danger">*</span></label>
                     <textarea name="requirements" class="form-check-input editor3" id="requirements" required></textarea>
                 </div>
-
-            </form>
+                <div class="form-group">
+                    <label for="tags">Tags<span class="text-danger">*</span></label>
+                    <select name="tags" id="tags" placeholder="Tags technologies ..." multiple class="form-control">
+                        <option value="Node.js">Nodejs</option>
+                        <option value="Go">Go</option>
+                        <option value="Javascript">Javascript</option>
+                        <option value="C">C</option>
+                        <option value="PHP">PHP</option>
+                        <option value="C++">C++</option>
+                        <option value="Python">Python</option>
+                        <option value="Java">Java</option>
+                        <option value="J2EE">J2EE</option>
+                        <option value="JavaEE">JavaEE</option>
+                        <option value="Spring Boot">Spring Boot</option>
+                        <option value="Thymeleaf">Thymeleaf</option>
+                        <option value="ejs">ejs</option>
+                        <option value="JQuery">JQuery</option>
+                        <option value="Ember">Ember</option>
+                        <option value="Vue.js">Vue.js</option>
+                        <option value="Angular.js">Angular.js</option>
+                        <option value="Angular">Angular</option>
+                        <option value="Symfony">Symfony</option>
+                        <option value="Agile">Agile</option>
+                        <option value="Scrum">Scrum</option>
+                        <option value="Git">Git</option>
+                        <option value="Cloud">Cloud</option>
+                        <option value="Microservice">Microservice</option>
+                        <option value="MongoDB">MongoDB</option>
+                        <option value="Redis">Redis</option>
+                        <option value="MySQL">MySQL</option>
+                        <option value="RabbitMQ">RabbitMQ</option>
+                        <option value="Twig">Twig</option>
+                        <option value="Ruby">Ruby</option>
+                        <option value="Rust">Rust</option>
+                        <option value="Laravel">Laravel</option>
+                        <option value="CakePHP">CakePHP</option>
+                        <option value="React">React</option>
+                        <option value="React-native">React-native</option>
+                        <option value="Android">Android</option>
+                        <option value="IOS">IOS</option>
+                        <option value="Swift">Swift</option>
+                        <option value="Kotlin">Kotlin</option>
+                        <option value="Docker">Docker</option>
+                        <option value="AWS">AWS</option>
+                        <option value="GCP">GCP</option>
+                        <option value="Azure">Azure</option>
+                        <option value="HTML">HTML</option>
+                        <option value="CSS">CSS</option>
+                        <option value="ExpressJS">ExpressJS</option>
+                        <option value="MEAN">MEAN</option>
+                        <option value="C#">C#</option>
+                        <option value="PWA">PWA</option>
+                        <option value="SaaS">SaaS</option>
+                        <option value="Data Scientist">Data Scientist</option>
+                        <option value="Lead Developer">Lead Developer</option>
+                        <option value="CTO">CTO</option>
+                        <option value="Backend">Backend</option>
+                        <option value="Frontend">Frontend</option>
+                        <option value="Junior">Junior</option>
+                        <option value="Senior">Senior</option>
+                        <option value="MariaDB">MariaDB</option>
+                        <option value="Linux">Linux</option>
+                        <option value="PostgreSQL">PostgreSQL</option>
+                        <option value="Oracle">Oracle</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Product Owner">Product Owner</option>
+                        <option value="Photoshop">Photoshop</option>
+                        <option value="Anglais">Anglais</option>
+                        <option value="NativeScript">NativeScript</option>
+                        <option value="TypeScript">TypeScript</option>
+                        <option value="OpenGL">OpenGL</option>
+                        <option value="WebGL">WebGL</option>
+                        <option value="Wasm">Web Assembly</option>
+                        <option value="Shell">Shell</option>
+                        <option value="IoT">IoT</option>
+                        <option value="AI">AI</option>
+                        <option value="Algorithme">Algorithme</option>
+                        <option value="Elasticsearch">Elasticsearch</option>
+                        <option value="GraphQL">GraphQL</option>
+                        <option value="JPA">JPA</option>
+                        <option value="Mongoose">Mongoose</option>
+                        <option value="Hibernate">Hibernate</option>
+                        <option value="PHPUnit">PHPUnit</option>
+                        <option value="Tests">Tests</option>
+                        <option value="Sequelize">Sequelize</option>
+                        <option value="API">API</option>
+                        <option value="REST">REST</option>
+                        <option value="SOAP">SOAP</option>
+                        <option value="JWT">JWT</option>
+                        <option value="Json">Json</option>
+                        <option value="Django">Django</option>
+                        <option value="HTTPS">HTTPS</option>
+                        <option value="MACOS">MacOS</option>
+                        <option value="Windows">Windows</option>
+                        <option value="Pip">pip</option>
+                        <option value="Npm">Npm</option>
+                        <option value="Cargo">Cargo</option>
+                        <option value="Composer">Composer</option>
+                        <option value="Terminal">Terminal</option>
+                        <option value="Maven">Maven</option>
+                        <option value="Gradle">Gradle</option>
+                        <option value="Jenkis">Jenkis</option>
+                        <option value="Travis">Travis</option>
+                        <option value="CI/CD">CI/CD</option>
+                        <option value="Anaconda">Anaconda</option>
+                        <option value="R">R</option>
+                        <option value="Fortran">Fortran</option>
+                        <option value="OCaml">OCaml</option>
+                        <option value="Clojure">Clojure</option>
+                        <option value="Cobol">Cobol</option>
+                        <option value="SQLite">SQLite</option>
+                        <option value="Cassandra">Cassandra</option>
+                        <option value="Julia">Julia</option>
+                        <option value="Developpement Web">Developpement Web</option>
+                        <option value="Developpement Mobile">Developpement Mobile</option>
+                        <option value="Fullstack">fullstack</option>
+                        <option value="DevOps">DevOps</option>
+                        <option value="Ingénieur Logiciel">Ingénieur Logiciel</option>
+                        <option value="Design Pattern">Design Pattern</option>
+                        <option value="MVC">MVC</option>
+                        <option value="MVP">MVP</option>
+                        <option value="MVVM">MVVM</option>
+                        <option value="International">International</option>
+                        <option value="Remote">Remote</option>
+                        <option value="Full remote">Full remote</option>
+                    </select>
+                </div>
+                <div class="text-right mt-2">
+                    <a href="" class="btn btn-lg btn-success">Ajouter</a>
+                </div>
+           </form>
         </div>
     </div>
 
@@ -92,6 +231,8 @@
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/12.3.1/classic/ckeditor.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
 <script>
     ClassicEditor
         .create( document.querySelector( '.editor' ), {
@@ -137,6 +278,22 @@
         .catch( error => {
         console.log( error );
     } );
+
+
+    var secondElement = new Choices('#tags', {
+        allowSearch: true,
+        removeItemButton: true,
+        duplicateItemsAllowed: false,
+        loadingText: 'Chargement ...',
+        noResultsText: 'Pas de résultat',
+        noChoicesText: 'Aucun résultat pour',
+        itemSelectText: 'Cliquer pour sélectionner',
+        renderChoiceLimit: 10,
+        maxItemCount: 10,
+        maxItemText: (maxItemCount) => {
+            return `Limit de ${maxItemCount} tags atteinte`;
+         }
+    }).setValue([]);
 </script>
 </body>
 </html>

@@ -12,12 +12,8 @@ const Announces =
         description: {type: Sequelize.TEXT},
         responsibilities: {type: Sequelize.TEXT},
         requirements: {type: Sequelize.TEXT},
-        jobType: {type: Sequelize.STRING},
-        experienceLevel: {type: Sequelize.STRING},
-        region: {type: Sequelize.STRING},
         companyName: {type: Sequelize.STRING},
         companyWebsite: {type: Sequelize.STRING, allowNull: true},
-        applicationUrl: {type: Sequelize.STRING, allowNull: true},
         contactEmail: {type: Sequelize.STRING}
     });
 
