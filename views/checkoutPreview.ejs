@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <!--Stripe JavaScript Library-->
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <title>DeveloperJobs</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid ">
+
+        <a class="navbar-brand" href="/">
+            <img src="/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            DeveloperJobs
+        </a>
+        <div class="navbar-nav mr-auto">
+            <ul class="nav navbar-nav">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="http://sylvain.alwaysdata.net">Qui suis-je ?</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/mailing/liste">Mailing List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.linkedin.com/in/sylvain-joly-3a7152aa/detail/recent-activity/shares/"><i
+                                class="fa fa-linkedin"></i></a>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="nav navbar-right">
+            <li class="nav-item dropdown">
+                <a class="btn btn-secondary btn-lg" href="/jobs">
+                    Poster une offre pour 4.99€
+                </a>
+
+        </div>
+    </div>
+</nav>
+
+
+
+<div class="container">
+    <div class="card mt-4">
+        <div class="card-body">
+            <h3 class="card-title text-center">Preview</h3>
+            <hr>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h4><%= job.position %></h4>
+                    <h5>
+                        <% if (job.companyUrl) { %>
+                        <i class="fa fa-building"></i>
+                        <a href="<%- job.companyUrl %>" target="_blank"><%= job.companyName %> </a>
+                        /
+                        <% } else { %>
+                        <i class="fa fa-building"></i>
+                        <%= job.companyName %> /
+                        <% } %>
+
+                        <i class="fa fa-map-marker"></i>
+                        <%= job.location %>
+                    </h5>
+                    <div>
+                        <% if (job.isRemoteFriendly) { %>
+                        <i class="fa fa-check text-success"></i> Remote friendly
+                        <% } else { %>
+                        <i class="fa fa-times text-danger"></i> Remote friendly
+                        <% } %>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <p><i class="fa fa-bell"></i> <%= job.createdAt.toLocaleDateString('fr-FR') %>
+                        %></p>
+                </div>
+            </div>
+            <div class="mt-4">
+                <div class="m-2">
+                    <h6><i class="fa fa-id-badge"></i> Description du job</h6>
+                    <div>
+                        <%- job.description %>
+                    </div>
+                </div>
+
+                <div class="m-2">
+                    <h6><i class="fa fa-tasks"></i> Responsabilités</h6>
+                    <div>
+                        <%- job.responsibilities %>
+                    </div>
+                </div>
+                <div class="m-2">
+                    <h6><i class="fa fa-cogs"></i> Compétences</h6>
+                    <div>
+                        <%- job.description %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-header">
+                <h6><i class="fa fa-tags"></i> Tags</h6>
+                <% if(job.tags.length === 0) { %>
+                <p class="text-center">Aucun tags utilisés</p>
+                <% } else { %>
+                <% for(let i in job.tags.split(",")) { %>
+                <span class="badge badge-info"><i class="fa fa-tags"></i> <%= job.tags.split(",")[i] %></span>
+                <% } %>
+                <% } %>
+            </div>
+
+        </div>
+    </div>
+    <div class="row m-3">
+            <div class="card mt-3 offset-md-2">
+                <div class="card-body">
+                    <h3 class="card-title text-center">Paiement</h3>
+                    <hr>
+                    <!--hero section-->
+                    <section class="mt-1">
+                        <div class="container">
+                            <div class="row">
+                                <div>
+                                    <p class="lead mb-4">
+                                        Indiquer vos informations de paiement
+                                    </p>
+                                    <form action="#" id="payment-form" method="post">
+                                        <input id="api-key" type="hidden" value="<%- stripeConfig.publicKey %>">
+                                        <div class="form-group">
+                                            <div class="w-100" id="card-element">
+                                                <!-- A Stripe Element will be inserted here. -->
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" id="email" name="email"
+                                                   placeholder="Email de facturation" type="email" required>
+                                        </div>
+                                        <p class="alert alert-info text-center">En cliquant sur <strong>"Confirmer"</strong><br> vous acceptez que votre annonce soit visible pour une durée de <strong>40 jours</strong></p>
+                                        <!-- Used to display Element errors. -->
+                                        <div class="text-danger w-100" id="card-errors" role="alert"></div>
+                                        <div class="form-group pt-2">
+                                            <button class="btn btn-success btn-block" id="submitButton" type="submit">
+                                                Confirmer
+                                            </button>
+                                            <div class="small text-muted mt-2">
+                                                Pay securely with Stripe. By clicking the button above, you agree
+                                                to our <a target="_blank" href="https://stripe.com/fr/ssa">Terms of Service</a>,
+                                                <a target="_blank" href="https://stripe.com/fr/privacy">Privacy</a> and
+                                                <a target="_blank" href="" data-toggle="modal" data-target="#exampleModalCenter">Refund</a> policies.
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Remboursement</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Intégralement remboursé si votre demande est fait dans un délai de 24h suivant votre paiement
+                    </p>
+
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script
+        src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+
+<!--custom javascript for handling subscription-->
+<script>
+    $(function () {
+        var API_KEY = $('#api-key').val();
+
+        // Create a Stripe client.
+        var stripe = Stripe(API_KEY);
+
+        // Create an instance of Elements.
+        var elements = stripe.elements();
+
+        // Create an instance of the card Element.
+        var card = elements.create('card');
+
+        // Add an instance of the card Element into the `card-element` <div>.
+        card.mount('#card-element');
+
+        // Handle real-time validation errors from the card Element.
+        card.addEventListener('change', function (event) {
+            var displayError = document.getElementById('card-errors');
+            if (event.error) {
+                displayError.textContent = event.error.message;
+            } else {
+                displayError.textContent = '';
+            }
+        });
+
+        // Handle form submission.
+        var form = document.getElementById('payment-form');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            // handle payment
+            handlePayments();
+        });
+
+        //handle card submission
+        function handlePayments() {
+            $("#submitButton").attr("disabled", true);
+
+            stripe.createToken(card).then(function (result) {
+                if (result.error) {
+
+                    setTimeout( function() {
+                        var errorElement = document.getElementById('card-errors');
+                        errorElement.textContent = result.error.message;
+                        $("#submitButton").attr("disabled", false);
+                    }, 500)
+
+                } else {
+                    var token = result.token.id;
+                    var email = $('#email').val();
+                    var jobId = <%= job.id %>
+
+                        //TODO => display loader (lock le bouton confirmed)
+                        // TODO => modal error + redirect si success sur une page succès
+                    $.post(
+                        "/create-charge",
+                        {email: email, token: token, jobId: jobId},
+                        function (data) {
+                            if(data.payment_error !== true){
+                                const urlParams = new URLSearchParams(window.location.search);
+                                const token = urlParams.get('token');
+                                location.href = `/checkout/success?token=${token}`
+                            } else {
+                                location.href = `/checkout/error`
+                            }
+                        }, 'json');
+                }
+            });
+        }
+    });
+</script>
+
+
+<footer class="footer mt-4">
+    <div class="container">
+        <p class="text-center">Made with <i class="fa fa-heart" style="color: red"></i> by <a
+                    href="http://sylvain.alwaysdata.net/">Joly Sylvain</a></p>
+        <p  class="text-center"><small><i class="fa fa-envelope"></i> developerjobs.service@gmail.com</small></p>
+        <p  class="text-center"><small><i class="fa fa-phone"></i> +33642561130</small></p>
+    </div>
+</footer>
+
+
+</body>
+</html>

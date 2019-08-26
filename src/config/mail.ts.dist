@@ -1,0 +1,9 @@
+'use strict';
+
+let auth = {
+    login: "",
+    password:""
+};
+
+
+export default auth;

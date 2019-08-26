@@ -12,6 +12,6 @@ export async function dbInstanceMiddleware(request: express.Request, response: e
             next();
         })
         .catch(err => {
-            response.render('error');
+            response.render('error', {message: "Une erreur est survenue, veuillez réessayer plus tard" });
         });
 }

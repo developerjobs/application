@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <title>DeveloperJobs</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid ">
+
+        <a class="navbar-brand" href="/">
+            <img src="/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            DeveloperJobs
+        </a>
+        <div class="navbar-nav mr-auto">
+            <ul class="nav navbar-nav">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="http://sylvain.alwaysdata.net">Qui suis-je ?</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/mailing/liste">Mailing List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.linkedin.com/in/sylvain-joly-3a7152aa/detail/recent-activity/shares/"><i
+                                class="fa fa-linkedin"></i></a>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="nav navbar-right">
+            <li class="nav-item dropdown">
+                <a class="btn btn-secondary btn-lg" href="/jobs">
+                    Poster une offre pour 4.99€
+                </a>
+
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <h1 class="text-center mt-4">Mailing liste</h1>
+    <p class="mt-2 text-center">Faites partie de la mailing liste afin de profiter gratuitement d'un e-mail pour toutes
+        les nouvelles offres d'emploi</p>
+    <div class="card mt-1 mb-5">
+        <div class="card-body">
+            <form id="mailingForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email"
+                           name="email">
+                    <div class="alert alert-danger mt-1 d-none" role="alert" id="error_email">
+                    </div>
+                    <div class="form-group  mt-3">
+                        <label for="prenom">Prénom</label>
+                        <input type="text" class="form-control" id="prenom" placeholder="Prénom" name="firstname"
+                               required>
+                        <div class="alert alert-danger mt-1 d-none" role="alert" id="error_firstname">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="nom">Nom</label>
+                            <input type="text" class="form-control" id="nom" placeholder="Nom" name="lastname" required>
+                            <div class="alert alert-danger mt-1 d-none" role="alert" id="error_lastname"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-success btn-lg" id="mailingBtn">S'inscrire</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer class="footer mt-4">
+    <div class="container">
+        <p class="text-center">Made with <i class="fa fa-heart" style="color: red"></i> by <a
+                    href="http://sylvain.alwaysdata.net/">Joly Sylvain</a></p>
+        <p  class="text-center"><small><i class="fa fa-envelope"></i> developerjobs.service@gmail.com</small></p>
+        <p  class="text-center"><small><i class="fa fa-phone"></i> +33642561130</small></p>
+    </div>
+</footer>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+<script>
+    $("#mailingForm").submit(function (e) {
+        e.preventDefault();
+        $("#mailingBtn").attr("disabled", true);
+
+        fetch("/mailing/liste", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email: $("#email").val(),
+                firstname: $("#prenom").val(),
+                lastname: $("#nom").val(),
+            })
+        })
+            .then(function (response) {
+                response.json().then(function (data) {
+                    setTimeout(function () {
+                        console.log(data.errors);
+                        if (response.status !== 200) {
+                            for (var i in data.errors) {
+                                console.log("da", data.errors)
+                                let idErr = `error_${i}`;
+                                $('#' + idErr).addClass("d-block")
+                                $('#' + idErr).text(data.errors[i])
+                            }
+                            $("#mailingBtn").attr("disabled", false);
+                        } else {
+                            location.href = `/mailing/liste/thanks`
+                            $("#mailingBtn").attr("disabled", false);
+                        }
+
+                        $("#mailingBtn").attr("disabled", false);
+
+                        return data
+                    }, 500)
+                })
+
+            })
+            .catch(function (err) {
+                setTimeout(function () {
+                    $("#mailingBtn").attr("disabled", false);
+                }, 500)
+            })
+    });
+</script>
+</body>
+</html>

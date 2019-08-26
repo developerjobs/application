@@ -1,12 +1,12 @@
 'use strict';
 
-import Db from "../config/db";
-import {Tools} from "./Tools"; // en vrai cette table est inutile dû à l'utilisation de tags
 
+import Db from "../config/db";
 const Sequelize = require('sequelize');
 
-const Announces =
-    Db.instance.define('announces', {
+
+const AnnouncesArchive =
+    Db.instance.define('announces_archive', {
         position: {type: Sequelize.STRING},
         location: {type: Sequelize.STRING},
         isRemoteFriendly: {type: Sequelize.BOOLEAN, defaultValue: false},
@@ -23,8 +23,4 @@ const Announces =
         visibility: {type: Sequelize.BOOLEAN, defaultValue: false} // => false only preview / true paid so can see
     });
 
-// https://sequelize.org/master/manual/associations.html
-Announces.hasMany(Tools);
-Tools.belongsTo(Announces);
-
-export default Announces;
+export default AnnouncesArchive;

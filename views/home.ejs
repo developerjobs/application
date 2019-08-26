@@ -10,33 +10,869 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
           integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-
     <title>DeveloperJobs</title>
 </head>
 <body>
 
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">
-        <img src="/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
-        DeveloperJobs
-    </a>
-    <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-            <a class="nav-link" href="#">Mailing List</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fa fa-twitter"></i></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fa fa-linkedin"></i></a>
-        </li>
-    </ul>
+    <div class="container-fluid ">
+
+        <a class="navbar-brand" href="/">
+            <img src="/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            DeveloperJobs
+        </a>
+        <div class="navbar-nav mr-auto">
+            <ul class="nav navbar-nav">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="http://sylvain.alwaysdata.net">Qui suis-je ?</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/mailing/liste">Mailing List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="https://www.linkedin.com/in/sylvain-joly-3a7152aa/detail/recent-activity/shares/"><i
+                                class="fa fa-linkedin"></i></a>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="nav navbar-right">
+            <li class="nav-item dropdown">
+                <a class="btn btn-secondary btn-lg" href="/jobs">
+                    Poster une offre pour 4.99€
+                </a>
+
+        </div>
+    </div>
 </nav>
 
-<div class="container">
+
+<div class="container-fluid">
+
+
+    <!-- 2 etapes -->
+    <!-- 1) Pour chaque mois on verifie que ca l'array n'est pas empty si empty on renvoit message rien -->
+    <!-- 2) Si pas vide, on loop sur la clé genre JSON.stringify(monthWithJobs["Juillet"] loop dessus et on recuperer tous et affiche -->
+    <!-- <%= JSON.stringify(monthWithJobs["Juillet"]) %> -->
+
+    <div class="row">
+
+        <div class="col-md-6 col-sm-6 mt-4 mb-5">
+            <div class="card">
+                <div class="card-body">
+                    <div class="container mt-2 mb-4">
+                        <h3 class="text-center">Comment ça marche ?</h3>
+                        <p class="text-justify font-italic">Recruteur ?</p>
+                        <p><strong>Poster votre offre et soyez visible pour des milliers d'utilisateurs pour seulement
+                                4.99€ ! ( Chaque offre est partagée sur mon Linkedin )</strong></p>
+                        <p class="text-justify font-italic">En recherche de votre prochain job ?</p>
+                        <p><strong>Trouvez votre prochain job parmi nos offres d'emploi et profitez gratuitement de
+                                notre mailing liste, afin d'être prévenu à chaque nouvelle annonce.</strong></p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card mt-4">
+                <div class="card-body">
+                    <div id="accordion">
+                        <h3 class="text-center">Annonces</h3>
+                        <% for (var i = 0; i <= 11; i++) { %>
+
+                        <% if(i === 0) { %>
+                        <!-- Janvier -->
+                        <div class="card mt-3">
+                            <div class="card-header" id="headingJanuary">
+                                <h5 class="mb-0">
+                                    Janvier
+
+                                    <% if (monthWithJobs["Janvier"].length > 0) { %>
+                                    <span class="badge badge-primary"> <%= monthWithJobs["Janvier"].length %>
+                                        offres</span>
+                                    <% } else if(monthWithJobs["Janvier"].length === 0) { %>
+                                    - Aucune offre
+                                    <% } else { %>
+                                    <span class="badge badge-primary"> <%= monthWithJobs["Janvier"].length %>
+                                        offre</span>
+                                    <% } %>
+                                    <button class="btn btn-link pull-right" data-toggle="collapse"
+                                            data-target="#collapseJanuary"
+                                            aria-expanded="true" aria-controls="collapseJanuary"><i
+                                                class="fa fa-angle-down"></i>
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapseJanuary" class="collapse" aria-labelledby="headingJanuary"
+                                 data-parent="#accordion">
+                                <div class="card-body">
+                                    <% if (monthWithJobs["Janvier"].length > 0) { %>
+                                    <ul class="list-group m-1">
+                                        <% for (var a = 0; a < monthWithJobs["Janvier"].length; a++ ) { %>
+                                        <li class="list-group-item m-2">
+                                            <p class="mt-1">
+                                                <strong><%= monthWithJobs["Janvier"][a].position %>
+                                                    - <%= monthWithJobs["Janvier"][a].companyName %></strong>
+                                                <br>
+                                                <small class="pull-right">
+                                                    <i class="fa fa-bell text-warning"></i> <%= monthWithJobs["Janvier"][a].createdAt.toLocaleDateString('fr-FR') %>
+                                                </small>
+                                                <br>
+                                                <small class="pull-right">
+                                                    <% if(monthWithJobs["Janvier"][a].isRemoteFriendly === true){ %>
+                                                    <i class="fa fa-check text-success"></i> Remote
+                                                    <% }else{ %>
+                                                    <i class="fa fa-times text-danger"></i> Remote
+                                                    <% } %>
+                                                    <span>Remote</span>
+                                                </small>
+
+                                            </p>
+                                            <a href="/job/view/<%= monthWithJobs["Janvier"][a].id %>"
+                                               class="mt-3 text-center">Voir l'offre</a>
+                                        </li>
+                                        <% } %>
+                                    </ul>
+                                    <% } else { %>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+
+                        <% if(i === 1) { %>
+                        <!-- Février -->
+                        <div class="card mt-3">
+                            <div class="card-header" id="headingFebruary">
+                                <h5 class="mb-0">
+                                    Février
+
+                                    <% if (monthWithJobs["Fevrier"].length > 0) { %>
+                                    <span class="badge badge-primary"> <%= monthWithJobs["Fevrier"].length %>
+                                        offres</span>
+                                    <% } else if(monthWithJobs["Fevrier"].length === 0) { %>
+                                    - Aucune offre
+                                    <% } else { %>
+                                    <span class="badge badge-primary"> <%= monthWithJobs["Fevrier"].length %>
+                                        offre</span>
+                                    <% } %>
+                                    <button class="btn btn-link pull-right" data-toggle="collapse"
+                                            data-target="#collapseFebruary"
+                                            aria-expanded="true" aria-controls="collapseFebruary"><i
+                                                class="fa fa-angle-down"></i>
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapseFebruary" class="collapse" aria-labelledby="headingFebruary"
+                                 data-parent="#accordion">
+                                <div class="card-body">
+                                    <% if (monthWithJobs["Fevrier"].length > 0) { %>
+                                    <ul class="list-group m-1">
+                                        <% for (var b = 0; b < monthWithJobs["Fevrier"].length; b++ ) { %>
+                                        <li class="list-group-item m-2">
+                                            <p class="mt-1">
+                                                <strong><%= monthWithJobs["Fevrier"][b].position %>
+                                                    - <%= monthWithJobs["Fevrier"][b].companyName %></strong>
+                                                <br>
+                                                <small class="pull-right">
+                                                    <i class="fa fa-bell text-warning"></i> <%= monthWithJobs["Fevrier"][b].createdAt.toLocaleDateString('fr-FR') %>
+                                                </small>
+                                                <br>
+                                                <small class="pull-right">
+                                                    <% if(monthWithJobs["Fevrier"][b].isRemoteFriendly === true){ %>
+                                                    <i class="fa fa-check text-success"></i> Remote
+                                                    <% }else{ %>
+                                                    <i class="fa fa-times text-danger"></i> Remote
+                                                    <% } %>
+                                                    <span>Remote</span>
+                                                </small>
+
+                                            </p>
+                                            <a href="/job/view/<%= monthWithJobs["Fevrier"][b].id %>"
+                                               class="mt-3 text-center">Voir l'offre</a>
+                                        </li>
+                                        <% } %>
+                                    </ul>
+                                    <% } else { %>
+
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+
+                        <% if(i === 2) { %>
+                        <!-- Mars -->
+                        <div class="card mt-3">
+                            <div class="card-header" id="headingMars">
+                                <h5 class="mb-0">
+                                    Mars
+
+                                    <% if (monthWithJobs["Mars"].length > 0) { %>
+                                    <span class="badge badge-primary"> <%= monthWithJobs["Mars"].length %> offres</span>
+                                    <% } else if(monthWithJobs["Mars"].length === 0) { %>
+                                    - Aucune offre
+                                    <% } else { %>
+                                    <span class="badge badge-primary"> <%= monthWithJobs["Mars"].length %> offre</span>
+                                    <% } %>
+                                    <button class="btn btn-link pull-right" data-toggle="collapse"
+                                            data-target="#collapseMars"
+                                            aria-expanded="true" aria-controls="collapseMars"><i
+                                                class="fa fa-angle-down"></i>
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapseMars" class="collapse" aria-labelledby="headingMars"
+                                 data-parent="#accordion">
+                                <div class="card-body">
+                                    <% if (monthWithJobs["Mars"].length > 0) { %>
+                                    <ul class="list-group m-1">
+                                        <% for (var c = 0; c < monthWithJobs["Mars"].length; c++ ) { %>
+                                        <li class="list-group-item m-2">
+                                            <p class="mt-1">
+                                                <strong><%= monthWithJobs["Mars"][c].position %>
+                                                    - <%= monthWithJobs["Mars"][c].companyName %></strong>
+                                                <br>
+                                                <small class="pull-right">
+                                                    <i class="fa fa-bell text-warning"></i> <%= monthWithJobs["Mars"][c].createdAt.toLocaleDateString('fr-FR') %>
+                                                </small>
+                                                <br>
+                                                <small class="pull-right">
+                                                    <% if(monthWithJobs["Mars"][c].isRemoteFriendly === true){ %>
+                                                    <i class="fa fa-check text-success"></i> Remote
+                                                    <% }else{ %>
+                                                    <i class="fa fa-times text-danger"></i> Remote
+                                                    <% } %>
+                                                    <span>Remote</span>
+                                                </small>
+
+                                            </p>
+                                            <a href="/job/view/<%= monthWithJobs["Mars"][c].id %>"
+                                               class="mt-3 text-center">Voir l'offre</a>
+                                        </li>
+                                        <% } %>
+                                    </ul>
+                                    <% } else { %>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+
+                        <% if(i === 3) { %>
+                        <!-- Avril -->
+                        <div class="card mt-3">
+                            <div class="card-header" id="headingAvril">
+                                <h5 class="mb-0">
+                                    Avril
+
+                                    <% if (monthWithJobs["Avril"].length > 0) { %>
+                                    <span class="badge badge-primary"> <%= monthWithJobs["Avril"].length %>
+                                        offres</span>
+                                    <% } else if(monthWithJobs["Avril"].length === 0) { %>
+                                    - Aucune offre
+                                    <% } else { %>
+                                    <span class="badge badge-primary"> <%= monthWithJobs["Avril"].length %> offre</span>
+                                    <% } %>
+                                    <button class="btn btn-link pull-right" data-toggle="collapse"
+                                            data-target="#collapseAvril"
+                                            aria-expanded="true" aria-controls="collapseAvril"><i
+                                                class="fa fa-angle-down"></i>
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapseAvril" class="collapse" aria-labelledby="headingAvril"
+                                 data-parent="#accordion">
+                                <div class="card-body">
+                                    <% if (monthWithJobs["Avril"].length > 0) { %>
+                                    <ul class="list-group m-1">
+                                        <% for (var d = 0; d < monthWithJobs["Avril"].length; d++ ) { %>
+                                        <li class="list-group-item m-2">
+                                            <p class="mt-1">
+                                                <strong><%= monthWithJobs["Avril"][d].position %>
+                                                    - <%= monthWithJobs["Avril"][d].companyName %></strong>
+                                                <br>
+                                                <small class="pull-right">
+                                                    <i class="fa fa-bell text-warning"></i> <%= monthWithJobs["Avril"][d].createdAt.toLocaleDateString('fr-FR') %>
+                                                </small>
+                                                <br>
+                                                <small class="pull-right">
+                                                    <% if(monthWithJobs["Avril"][d].isRemoteFriendly === true){ %>
+                                                    <i class="fa fa-check text-success"></i> Remote
+                                                    <% }else{ %>
+                                                    <i class="fa fa-times text-danger"></i> Remote
+                                                    <% } %>
+                                                    <span>Remote</span>
+                                                </small>
+
+                                            </p>
+                                            <a href="/job/view/<%= monthWithJobs["Avril"][d].id %>"
+                                               class="mt-3 text-center">Voir l'offre</a>
+                                        </li>
+                                        <% } %>
+                                    </ul>
+                                    <% } else { %>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+
+                        <% if(i === 4) { %>
+                        <!-- Mai -->
+                        <div class="card mt-3">
+                            <div class="card-header" id="headingMai">
+                                <h5 class="mb-0">
+                                    Mai
+
+                                    <% if (monthWithJobs["Mai"].length > 0) { %>
+                                    <span class="badge badge-primary"> <%= monthWithJobs["Mai"].length %> offres</span>
+                                    <% } else if(monthWithJobs["Mai"].length === 0) { %>
+                                    - Aucune offre
+                                    <% } else { %>
+                                    <span class="badge badge-primary"> <%= monthWithJobs["Mai"].length %> offre</span>
+                                    <% } %>
+                                    <button class="btn btn-link pull-right" data-toggle="collapse"
+                                            data-target="#collapseMai"
+                                            aria-expanded="true" aria-controls="collapseMai"><i
+                                                class="fa fa-angle-down"></i>
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapseMai" class="collapse" aria-labelledby="headingMai"
+                                 data-parent="#accordion">
+                                <div class="card-body">
+                                    <% if (monthWithJobs["Mai"].length > 0) { %>
+                                    <ul class="list-group m-1">
+                                        <% for (var e = 0; e < monthWithJobs["Mai"].length; e++ ) { %>
+                                        <li class="list-group-item m-2">
+                                            <p class="mt-1">
+                                                <strong><%= monthWithJobs["Mai"][e].position %>
+                                                    - <%= monthWithJobs["Mai"][e].companyName %></strong>
+                                                <br>
+                                                <small class="pull-right">
+                                                    <i class="fa fa-bell text-warning"></i> <%= monthWithJobs["Mai"][e].createdAt.toLocaleDateString('fr-FR') %>
+                                                </small>
+                                                <br>
+                                                <small class="pull-right">
+                                                    <% if(monthWithJobs["Mai"][e].isRemoteFriendly === true){ %>
+                                                    <i class="fa fa-check text-success"></i> Remote
+                                                    <% }else{ %>
+                                                    <i class="fa fa-times text-danger"></i> Remote
+                                                    <% } %>
+                                                    <span>Remote</span>
+                                                </small>
+
+                                            </p>
+                                            <a href="/job/view/<%= monthWithJobs["Mai"][e].id %>"
+                                               class="mt-3 text-center">Voir l'offre</a>
+                                        </li>
+                                        <% } %>
+                                    </ul>
+                                    <% } else { %>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+
+                        <% if(i === 5) { %>
+                        <!-- Juin -->
+                        <div class="card mt-3">
+                            <div class="card-header" id="headingJuin">
+                                <h5 class="mb-0">
+                                    Juin
+
+                                    <% if (monthWithJobs["Juin"].length > 0) { %>
+                                    <span class="badge badge-primary"> <%= monthWithJobs["Juin"].length %> offres</span>
+                                    <% } else if(monthWithJobs["Juin"].length === 0) { %>
+                                    - Aucune offre
+                                    <% } else { %>
+                                    <span class="badge badge-primary"> <%= monthWithJobs["Juin"].length %> offre</span>
+                                    <% } %>
+                                    <button class="btn btn-link pull-right" data-toggle="collapse"
+                                            data-target="#collapseJuin"
+                                            aria-expanded="true" aria-controls="collapseJuin"><i
+                                                class="fa fa-angle-down"></i>
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapseJuin" class="collapse" aria-labelledby="headingJuin"
+                                 data-parent="#accordion">
+                                <div class="card-body">
+                                    <% if (monthWithJobs["Juin"].length > 0) { %>
+                                    <ul class="list-group m-1">
+                                        <% for (var f = 0; f < monthWithJobs["Juin"].length; f++ ) { %>
+                                        <li class="list-group-item m-2">
+                                            <p class="mt-1">
+                                                <strong><%= monthWithJobs["Juin"][f].position %>
+                                                    - <%= monthWithJobs["Juin"][f].companyName %></strong>
+                                                <br>
+                                                <small class="pull-right">
+                                                    <i class="fa fa-bell text-warning"></i> <%= monthWithJobs["Juin"][f].createdAt.toLocaleDateString('fr-FR') %>
+                                                </small>
+                                                <br>
+                                                <small class="pull-right">
+                                                    <% if(monthWithJobs["Juin"][f].isRemoteFriendly === true){ %>
+                                                    <i class="fa fa-check text-success"></i> Remote
+                                                    <% }else{ %>
+                                                    <i class="fa fa-times text-danger"></i> Remote
+                                                    <% } %>
+                                                    <span>Remote</span>
+                                                </small>
+
+                                            </p>
+                                            <a href="/job/view/<%= monthWithJobs["Juin"][f].id %>"
+                                               class="mt-3 text-center">Voir l'offre</a>
+                                        </li>
+                                        <% } %>
+                                    </ul>
+                                    <% } else { %>
+
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+
+                        <% if(i === 6) { %>
+                        <!-- Juillet -->
+                        <div class="card mt-3">
+                            <div class="card-header" id="headingJuly">
+                                <h5 class="mb-0">
+                                    Juillet
+
+                                    <% if (monthWithJobs["Juillet"].length > 0) { %>
+                                    <span class="badge badge-primary"> <%= monthWithJobs["Juillet"].length %>
+                                        offres</span>
+                                    <% } else if(monthWithJobs["Juillet"].length === 0) { %>
+                                    - Aucune offre
+                                    <% } else { %>
+                                    <span class="badge badge-primary"> <%= monthWithJobs["Juillet"].length %>
+                                        offre</span>
+                                    <% } %>
+                                    <button class="btn btn-link pull-right" data-toggle="collapse"
+                                            data-target="#collapseJuly"
+                                            aria-expanded="true" aria-controls="collapseJuly"><i
+                                                class="fa fa-angle-down"></i>
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapseJuly" class="collapse" aria-labelledby="headingJuly"
+                                 data-parent="#accordion">
+                                <div class="card-body">
+                                    <% if (monthWithJobs["Juillet"].length > 0) { %>
+                                    <ul class="list-group m-1">
+                                        <% for (var x = 0; x < monthWithJobs["Juillet"].length; x++ ) { %>
+                                        <li class="list-group-item m-2">
+                                            <p class="mt-1">
+                                                <strong><%= monthWithJobs["Juillet"][x].position %>
+                                                    - <%= monthWithJobs["Juillet"][x].companyName %></strong>
+                                                <br>
+                                                <small class="pull-right">
+                                                    <i class="fa fa-bell text-warning"></i> <%= monthWithJobs["Juillet"][x].createdAt.toLocaleDateString('fr-FR') %>
+                                                </small>
+                                                <br>
+                                                <small class="pull-right">
+                                                    <% if(monthWithJobs["Juillet"][x].isRemoteFriendly === true){ %>
+                                                    <i class="fa fa-check text-success"></i> Remote
+                                                    <% }else{ %>
+                                                    <i class="fa fa-times text-danger"></i> Remote
+                                                    <% } %>
+                                                    <span>Remote</span>
+                                                </small>
+
+                                            </p>
+                                            <a href="/job/view/<%= monthWithJobs["Juillet"][x].id %>"
+                                               class="mt-3 text-center">Voir l'offre</a>
+                                        </li>
+                                        <% } %>
+                                    </ul>
+                                    <% } else { %>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+
+                        <% if(i === 7) { %>
+                        <!-- Aout -->
+                        <div class="card mt-3">
+                            <div class="card-header" id="headingAout">
+                                <h5 class="mb-0">
+                                    Août
+
+                                    <% if (monthWithJobs["Aout"].length > 0) { %>
+                                    <span class="badge badge-primary"> <%= monthWithJobs["Aout"].length %> offres</span>
+                                    <% } else if(monthWithJobs["Aout"].length === 0) { %>
+                                    - Aucune offre
+                                    <% } else { %>
+                                    <span class="badge badge-primary"> <%= monthWithJobs["Aout"].length %> offre</span>
+                                    <% } %>
+                                    <button class="btn btn-link pull-right" data-toggle="collapse"
+                                            data-target="#collapseAout"
+                                            aria-expanded="true" aria-controls="collapseAout"><i
+                                                class="fa fa-angle-down"></i>
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapseAout" class="collapse" aria-labelledby="headingAout"
+                                 data-parent="#accordion">
+                                <div class="card-body">
+                                    <% if (monthWithJobs["Aout"].length > 0) { %>
+                                    <ul class="list-group m-1">
+                                        <% for (var g = 0; g < monthWithJobs["Aout"].length; g++ ) { %>
+                                        <li class="list-group-item m-2">
+                                            <p class="mt-1">
+                                                <strong><%= monthWithJobs["Aout"][g].position %>
+                                                    - <%= monthWithJobs["Aout"][g].companyName %></strong>
+                                                <br>
+                                                <small class="pull-right">
+                                                    <i class="fa fa-bell text-warning"></i> <%= monthWithJobs["Aout"][g].createdAt.toLocaleDateString('fr-FR') %>
+                                                </small>
+                                                <br>
+                                                <small class="pull-right">
+                                                    <% if(monthWithJobs["Aout"][g].isRemoteFriendly === true){ %>
+                                                    <i class="fa fa-check text-success"></i> Remote
+                                                    <% }else{ %>
+                                                    <i class="fa fa-times text-danger"></i> Remote
+                                                    <% } %>
+                                                    <span>Remote</span>
+                                                </small>
+
+                                            </p>
+                                            <a href="/job/view/<%= monthWithJobs["Aout"][g].id %>"
+                                               class="mt-3 text-center">Voir l'offre</a>
+                                        </li>
+                                        <% } %>
+                                    </ul>
+                                    <% } else { %>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+
+                        <% if(i === 8) { %>
+                        <!-- Septembre -->
+                        <div class="card mt-3">
+                            <div class="card-header" id="headingSeptembre">
+                                <h5 class="mb-0">
+                                    Septembre
+
+                                    <% if (monthWithJobs["Septembre"].length > 0) { %>
+                                    <span class="badge badge-primary"> <%= monthWithJobs["Septembre"].length %>
+                                        offres</span>
+                                    <% } else if(monthWithJobs["Septembre"].length === 0) { %>
+                                    - Aucune offre
+                                    <% } else { %>
+                                    <span class="badge badge-primary"> <%= monthWithJobs["Septembre"].length %>
+                                        offre</span>
+                                    <% } %>
+                                    <button class="btn btn-link pull-right" data-toggle="collapse"
+                                            data-target="#collapseSeptembre"
+                                            aria-expanded="true" aria-controls="collapseSeptembre"><i
+                                                class="fa fa-angle-down"></i>
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapseSeptembre" class="collapse" aria-labelledby="headingSeptembre"
+                                 data-parent="#accordion">
+                                <div class="card-body">
+                                    <% if (monthWithJobs["Septembre"].length > 0) { %>
+                                    <ul class="list-group m-1">
+                                        <% for (var h = 0; g < monthWithJobs["Septembre"].length; h++ ) { %>
+                                        <li class="list-group-item m-2">
+                                            <p class="mt-1">
+                                                <strong><%= monthWithJobs["Septembre"][h].position %>
+                                                    - <%= monthWithJobs["Septembre"][h].companyName %></strong>
+                                                <br>
+                                                <small class="pull-right">
+                                                    <i class="fa fa-bell text-warning"></i> <%= monthWithJobs["Septembre"][h].createdAt.toLocaleDateString('fr-FR') %>
+                                                </small>
+                                                <br>
+                                                <small class="pull-right">
+                                                    <% if(monthWithJobs["Septembre"][h].isRemoteFriendly === true){ %>
+                                                    <i class="fa fa-check text-success"></i> Remote
+                                                    <% }else{ %>
+                                                    <i class="fa fa-times text-danger"></i> Remote
+                                                    <% } %>
+                                                    <span>Remote</span>
+                                                </small>
+
+                                            </p>
+                                            <a href="/job/view/<%= monthWithJobs["Septembre"][h].id %>"
+                                               class="mt-3 text-center">Voir l'offre</a>
+                                        </li>
+                                        <% } %>
+                                    </ul>
+                                    <% } else { %>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+
+                        <% if(i === 9) { %>
+                        <!-- Octobre -->
+                        <div class="card mt-3">
+                            <div class="card-header" id="headingOctobre">
+                                <h5 class="mb-0">
+                                    Octobre
+
+                                    <% if (monthWithJobs["Octobre"].length > 0) { %>
+                                    <span class="badge badge-primary"> <%= monthWithJobs["Octobre"].length %>
+                                        offres</span>
+                                    <% } else if(monthWithJobs["Octobre"].length === 0) { %>
+                                    - Aucune offre
+                                    <% } else { %>
+                                    <span class="badge badge-primary"> <%= monthWithJobs["Octobre"].length %>
+                                        offre</span>
+                                    <% } %>
+                                    <button class="btn btn-link pull-right" data-toggle="collapse"
+                                            data-target="#collapseOctobre"
+                                            aria-expanded="true" aria-controls="collapseOctobre"><i
+                                                class="fa fa-angle-down"></i>
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapseOctobre" class="collapse" aria-labelledby="headingOctobre"
+                                 data-parent="#accordion">
+                                <div class="card-body">
+                                    <% if (monthWithJobs["Octobre"].length > 0) { %>
+                                    <ul class="list-group m-1">
+                                        <% for (var k = 0; k < monthWithJobs["Octobre"].length; k++ ) { %>
+                                        <li class="list-group-item m-2">
+                                            <p class="mt-1">
+                                                <strong><%= monthWithJobs["Octobre"][k].position %>
+                                                    - <%= monthWithJobs["Octobre"][k].companyName %></strong>
+                                                <br>
+                                                <small class="pull-right">
+                                                    <i class="fa fa-bell text-warning"></i> <%= monthWithJobs["Octobre"][k].createdAt.toLocaleDateString('fr-FR') %>
+                                                </small>
+                                                <br>
+                                                <small class="pull-right">
+                                                    <% if(monthWithJobs["Octobre"][k].isRemoteFriendly === true){ %>
+                                                    <i class="fa fa-check text-success"></i> Remote
+                                                    <% }else{ %>
+                                                    <i class="fa fa-times text-danger"></i> Remote
+                                                    <% } %>
+                                                    <span>Remote</span>
+                                                </small>
+
+                                            </p>
+                                            <a href="/job/view/<%= monthWithJobs["Octobre"][k].id %>"
+                                               class="mt-3 text-center">Voir l'offre</a>
+                                        </li>
+                                        <% } %>
+                                    </ul>
+                                    <% } else { %>
+
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+
+                        <% if(i === 10) { %>
+                        <!-- Novembre -->
+                        <div class="card mt-3">
+                            <div class="card-header" id="headingNovembre">
+                                <h5 class="mb-0">
+                                    Novembre
+
+                                    <% if (monthWithJobs["Novembre"].length > 0) { %>
+                                    <span class="badge badge-primary"> <%= monthWithJobs["Novembre"].length %>
+                                        offres</span>
+                                    <% } else if(monthWithJobs["Novembre"].length === 0) { %>
+                                    - Aucune offre
+                                    <% } else { %>
+                                    <span class="badge badge-primary"> <%= monthWithJobs["Novembre"].length %>
+                                        offre</span>
+                                    <% } %>
+                                    <button class="btn btn-link pull-right" data-toggle="collapse"
+                                            data-target="#collapseNovembre"
+                                            aria-expanded="true" aria-controls="collapseNovembre"><i
+                                                class="fa fa-angle-down"></i>
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapseNovembre" class="collapse" aria-labelledby="headingNovembre"
+                                 data-parent="#accordion">
+                                <div class="card-body">
+                                    <% if (monthWithJobs["Novembre"].length > 0) { %>
+                                    <ul class="list-group m-1">
+                                        <% for (var m = 0; m < monthWithJobs["Novembre"].length; m++ ) { %>
+                                        <li class="list-group-item m-2">
+                                            <p class="mt-1">
+                                                <strong><%= monthWithJobs["Novembre"][m].position %>
+                                                    - <%= monthWithJobs["Novembre"][m].companyName %></strong>
+                                                <br>
+                                                <small class="pull-right">
+                                                    <i class="fa fa-bell text-warning"></i> <%= monthWithJobs["Novembre"][m].createdAt.toLocaleDateString('fr-FR') %>
+                                                </small>
+                                                <br>
+                                                <small class="pull-right">
+                                                    <% if(monthWithJobs["Novembre"][m].isRemoteFriendly === true){ %>
+                                                    <i class="fa fa-check text-success"></i> Remote
+                                                    <% }else{ %>
+                                                    <i class="fa fa-times text-danger"></i> Remote
+                                                    <% } %>
+                                                    <span>Remote</span>
+                                                </small>
+
+                                            </p>
+                                            <a href="/job/view/<%= monthWithJobs["Novembre"][m].id %>"
+                                               class="mt-3 text-center">Voir l'offre</a>
+                                        </li>
+                                        <% } %>
+                                    </ul>
+                                    <% } else { %>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+
+                        <% if(i === 11) { %>
+                        <!-- Decembre -->
+                        <div class="card mt-3">
+                            <div class="card-header" id="headingDecembre">
+                                <h5 class="mb-0">
+                                    Décembre
+
+                                    <% if (monthWithJobs["Decembre"].length > 0) { %>
+                                    <span class="badge badge-primary"> <%= monthWithJobs["Decembre"].length %>
+                                        offres</span>
+                                    <% } else if(monthWithJobs["Decembre"].length === 0) { %>
+                                    - Aucune offre
+                                    <% } else { %>
+                                    <span class="badge badge-primary"> <%= monthWithJobs["Decembre"].length %>
+                                        offre</span>
+                                    <% } %>
+                                    <button class="btn btn-link pull-right" data-toggle="collapse"
+                                            data-target="#collapseDecembre"
+                                            aria-expanded="true" aria-controls="collapseDecembre"><i
+                                                class="fa fa-angle-down"></i>
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapseDecembre" class="collapse" aria-labelledby="headingDecembre"
+                                 data-parent="#accordion">
+                                <div class="card-body">
+                                    <% if (monthWithJobs["Decembre"].length > 0) { %>
+                                    <ul class="list-group m-1">
+                                        <% for (var o = 0; o < monthWithJobs["Decembre"].length; o++ ) { %>
+                                        <li class="list-group-item m-2">
+                                            <p class="mt-1">
+                                                <strong><%= monthWithJobs["Decembre"][o].position %>
+                                                    - <%= monthWithJobs["Decembre"][o].companyName %></strong>
+                                                <br>
+                                                <small class="pull-right">
+                                                    <i class="fa fa-bell text-warning"></i> <%= monthWithJobs["Decembre"][o].createdAt.toLocaleDateString('fr-FR') %>
+                                                </small>
+                                                <br>
+                                                <small class="pull-right">
+                                                    <% if(monthWithJobs["Decembre"][o].isRemoteFriendly === true){ %>
+                                                    <i class="fa fa-check text-success"></i> Remote
+                                                    <% }else{ %>
+                                                    <i class="fa fa-times text-danger"></i> Remote
+                                                    <% } %>
+                                                    <span>Remote</span>
+                                                </small>
+
+                                            </p>
+                                            <a href="/job/view/<%= monthWithJobs["Decembre"][o].id %>"
+                                               class="mt-3 text-center">Voir l'offre</a>
+                                        </li>
+                                        <% } %>
+                                    </ul>
+                                    <% } else { %>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+
+                        <% } %>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-md-6 col-sm-6 mt-4">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container mb-4 text-center">
+                    <h1 class="display-6">Recruteur ?</h1>
+                    <p class="lead text-center"> Déposez une offre d'emploi pour seulement <strong>4.99€</strong>,
+                        visible par des milliers d'experts du numériques</p>
+                    <a class="btn btn-lg btn-info" href="/jobs">Poster une offre</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="container mt-2 mb-4">
+                        <h3 class="text-center">Dernière annonces</h3>
+
+                        <% if(lastestJobs.length === 0) { %>
+                        <p class="alert alert-warning text-center mt-3">Aucune nouvelle offre pour le moment</p>
+                        <% }else{ %>
+                        <ul class="list-group m-1">
+                            <% for (var z = 0; z <= lastestJobs[0].length - 1;z++ ) { %>
+                            <li class="list-group-item m-2">
+                                <p class="mt-1">
+                                    <strong><%= lastestJobs[0][z].position %>
+                                        - <%= lastestJobs[0][z].companyName %></strong>
+                                    <br>
+                                    <small class="pull-right">
+                                        <i class="fa fa-bell text-warning"></i> <%= lastestJobs[0][z].createdAt.toLocaleDateString('fr-FR') %>
+                                    </small>
+                                    <br>
+                                    <small class="pull-right">
+                                        <% if(lastestJobs[0][z].isRemoteFriendly === true){ %>
+                                        <i class="fa fa-check text-success"></i> Remote
+                                        <% }else{ %>
+                                        <i class="fa fa-times text-danger"></i> Remote
+                                        <% } %>
+                                        <span>Remote</span>
+                                    </small>
+
+                                </p>
+                                <a href="/job/view/<%= lastestJobs[0][z].id %>" class="mt-3 text-center">Voir
+                                    l'offre</a>
+                            </li>
+                            <% } %>
+                        </ul>
+                        <% } %>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!--
     <div class="jumbotron mt-3">
         <div class="container">
             <h5 class="display-4">Developer Jobs</h5>
@@ -50,12 +886,30 @@
             </p>
         </div>
     </div>
+
+    <div class="bd-example d-md-flex">
+        <div class="overflow-auto p-3 mb-3 mb-md-0 mr-md-3 bg-light" style="max-width: 260px; max-height: 100px;">
+            This is an example of using <code>.overflow-auto</code> on an element with set width and height dimensions. By design, this content will vertically scroll.
+        </div>
+        <div class="overflow-hidden p-3 bg-light" style="max-width: 260px; max-height: 100px;">
+            This is an example of using <code>.overflow-hidden</code> on an element with set width and height dimensions.
+        </div>
+    </div>
+    -->
+
 </div>
 
 
-<footer class="footer">
+<footer class="footer mt-4">
     <div class="container">
-        <p class="text-center">Made with <i class="fa fa-heart" style="color: red"></i> by <a href="http://sylvain.alwaysdata.net/">Joly Sylvain</a></p>
+        <p class="text-center">Made with <i class="fa fa-heart" style="color: red"></i> by <a
+                    href="http://sylvain.alwaysdata.net/">Joly Sylvain</a></p>
+        <p class="text-center">
+            <small><i class="fa fa-envelope"></i> developerjobs.service@gmail.com</small>
+        </p>
+        <p class="text-center">
+            <small><i class="fa fa-phone"></i> +33642561130</small>
+        </p>
     </div>
 </footer>
 
@@ -70,5 +924,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+
 </body>
 </html>

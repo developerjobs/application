@@ -18,63 +18,112 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">
-        <img src="/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
-        DeveloperJobs
-    </a>
-    <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-            <a class="nav-link" href="#">Mailing List</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fa fa-twitter"></i></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fa fa-linkedin"></i></a>
-        </li>
-    </ul>
+    <div class="container-fluid ">
+
+        <a class="navbar-brand" href="/">
+            <img src="/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            DeveloperJobs
+        </a>
+        <div class="navbar-nav mr-auto">
+            <ul class="nav navbar-nav">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="http://sylvain.alwaysdata.net">Qui suis-je ?</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/mailing/liste">Mailing List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.linkedin.com/in/sylvain-joly-3a7152aa/detail/recent-activity/shares/"><i
+                                class="fa fa-linkedin"></i></a>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="nav navbar-right">
+            <li class="nav-item dropdown">
+                <a class="btn btn-secondary btn-lg" href="/jobs">
+                    Poster une offre pour 4.99€
+                </a>
+
+        </div>
+    </div>
 </nav>
 
 <div class="container">
 
     <div class="card mt-5 mb-3">
         <div class="card-body">
-            <h5 class="card-title text-center">Création d'une annonce</h5>
-            <form>
+            <h5 class="card-title text-center">Création d'une offre d'emploi</h5>
+            <p class="text-center"> Créér et partager une offre d'emploi avec des milliers de spécialistes du web et du
+                digital en seulement 5 minutes ! </p>
+            <div class="text-center row m-3">
+                <div class="col"> ✅ Partage avec l'emailing list de DeveloperJobs</div>
+                <div class="col"> ✅ Partage de votre offre avec des miliers de professionnels (Linkedin)</div>
+            </div>
+            <hr>
+            <form id="announceForm">
                 <div class="form-group">
                     <label for="position">Position<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="position" placeholder="Intitulé du poste" required name="position">
+                    <input type="text" class="form-control" id="position" placeholder="Intitulé du poste" required
+                           name="position">
+                    <div class="alert alert-danger mt-1 d-none" role="alert" id="error_position">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="contactEmail">Email de contact<span class="text-danger">*</span></label>
+                    <input type="email" class="form-control" id="contactEmail" placeholder="Email de contact" required
+                           name="contactEmail">
+                    <div class="alert alert-danger mt-1 d-none" role="alert" id="error_emailContact">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="location">Localisation<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="location" placeholder="Localisation du poste" required name="location">
+                    <input type="text" class="form-control" id="location" placeholder="Localisation du poste" required
+                           name="location">
+                    <div class="alert alert-danger mt-1 d-none" role="alert" id="error_location">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="companyName">Entreprise<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="companyName" placeholder="Nom de l'entreprise" required name="companyName">
+                    <input type="text" class="form-control" id="companyName" placeholder="Nom de l'entreprise" required
+                           name="companyName">
+                    <div class="alert alert-danger mt-1 d-none" role="alert" id="error_companyName">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="companyUrl">Lien du site de l'entreprise</label>
-                    <input type="text" class="form-control" id="companyUrl" placeholder="Lien vers le site de l'entreprise" name="companyUrl">
+                    <input type="text" class="form-control" id="companyUrl" required
+                           placeholder="Lien vers le site de l'entreprise" name="companyUrl">
+                    <p class="small font-weight-light">Example : https://www.yourCompany.com</p>
+                    <div class="alert alert-danger mt-1 d-none" role="alert" id="error_companyUrl">
+                    </div>
                 </div>
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" id="isRemoteFriendly" name="isRemoteFriendly">
                     <label class="form-check-label" for="isRemoteFriendly">Remote friendly</label>
+                    <div class="alert alert-danger mt-1 d-none" role="alert" id="error_isRemoteFriendly">
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="description">Description<span class="text-danger">*</span></label>
-                    <textarea name="description" class="form-check-input editor" id="description" required></textarea>
+                    <label for="description">Description<span class="text-danger">*</span><small>( type de contrat, salaire, missions ...)</small></label>
+                    <textarea name="description" class="form-check-input editor" id="description"></textarea>
+                    <div class="alert alert-danger mt-1 d-none" role="alert" id="error_description">
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="responsabilities">Responsabilités<span class="text-danger">*</span></label>
-                    <textarea name="responsabilities" class="form-check-input editor2" id="responsabilities" required></textarea>
+                    <label for="responsibilities">Responsabilités<span class="text-danger">*</span></label>
+                    <textarea name="responsibilities" class="form-check-input editor2" id="responsibilities"></textarea>
+                    <div class="alert alert-danger mt-1 d-none" role="alert" id="error_responsibilities">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="requirements">Compétences<span class="text-danger">*</span></label>
-                    <textarea name="requirements" class="form-check-input editor3" id="requirements" required></textarea>
+                    <textarea name="requirements" class="form-check-input editor3" id="requirements"></textarea>
+                    <div class="alert alert-danger mt-1 d-none" role="alert" id="error_requirements">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="tags">Tags<span class="text-danger">*</span></label>
@@ -203,19 +252,28 @@
                         <option value="Full remote">Full remote</option>
                     </select>
                 </div>
-                <div class="text-right mt-2">
-                    <a href="" class="btn btn-lg btn-success">Ajouter</a>
+                <div class="alert alert-danger mt-1 d-none" role="alert" id="error_tags">
                 </div>
-           </form>
+                <div>
+                    <p class="alert alert-warning text-center">En cliquant sur <strong>Continuer</strong>, vous acceptez que cette offre soit publiée et visible sur Linkedin.</p>
+                </div>
+                <div class="text-right mt-2">
+                    <button type="submit" class="btn btn-lg btn-success" id="btnSubmit">Continuer</button>
+                </div>
+
+            </form>
         </div>
     </div>
 
 </div>
 
 
-<footer class="footer">
+<footer class="footer mt-4">
     <div class="container">
-        <p class="text-center">Made with <i class="fa fa-heart" style="color: red"></i> by <a href="http://sylvain.alwaysdata.net/">Joly Sylvain</a></p>
+        <p class="text-center">Made with <i class="fa fa-heart" style="color: red"></i> by <a
+                    href="http://sylvain.alwaysdata.net/">Joly Sylvain</a></p>
+        <p  class="text-center"><small><i class="fa fa-envelope"></i> developerjobs.service@gmail.com</small></p>
+        <p  class="text-center"><small><i class="fa fa-phone"></i> +33642561130</small></p>
     </div>
 </footer>
 
@@ -235,49 +293,52 @@
 
 <script>
     ClassicEditor
-        .create( document.querySelector( '.editor' ), {
-            toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
+        .create(document.querySelector('.editor'), {
+            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
             heading: {
                 options: [
-                    { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                    { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-                    { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
+                    {model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph'},
+                    {model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1'},
+                    {model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2'}
                 ]
             }
-        } )
-        .catch( error => {
-        console.log( error );
-    } );
+        })
+        .catch(error => {
+        console.log(error);
+    } )
+    ;
 
     ClassicEditor
-        .create( document.querySelector( '.editor2' ), {
-            toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
+        .create(document.querySelector('.editor2'), {
+            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
             heading: {
                 options: [
-                    { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                    { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-                    { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
+                    {model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph'},
+                    {model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1'},
+                    {model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2'}
                 ]
             }
-        } )
-        .catch( error => {
-        console.log( error );
-    } );
+        })
+        .catch(error => {
+        console.log(error);
+    } )
+    ;
 
     ClassicEditor
-        .create( document.querySelector( '.editor3' ), {
-            toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
+        .create(document.querySelector('.editor3'), {
+            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
             heading: {
                 options: [
-                    { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                    { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-                    { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
+                    {model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph'},
+                    {model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1'},
+                    {model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2'}
                 ]
             }
-        } )
-        .catch( error => {
-        console.log( error );
-    } );
+        })
+        .catch(error => {
+        console.log(error);
+    } )
+    ;
 
 
     var secondElement = new Choices('#tags', {
@@ -291,9 +352,75 @@
         renderChoiceLimit: 10,
         maxItemCount: 10,
         maxItemText: (maxItemCount) => {
-            return `Limit de ${maxItemCount} tags atteinte`;
-         }
+        return `Limit de ${maxItemCount} tags atteinte`;
+    }
     }).setValue([]);
+
+
+    var choiceTags = [];
+
+    $(document).ready(function () {
+        $('#tags').on('change', function () {
+            choiceTags = $(this).val(); // return array
+        });
+    });
+
+
+    $("#announceForm").submit(function (e) {
+        e.preventDefault();
+        $("#btnSubmit").attr("disabled", true);
+
+        var checked = false;
+        if ($('#isRemoteFriendly').is(":checked")) {
+            checked = true;
+        }
+
+        fetch("/jobs", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                position: $("#position").val(),
+                location: $("#location").val(),
+                companyName: $("#companyName").val(),
+                companyUrl: $("#companyUrl").val(),
+                isRemoteFriendly: checked,
+                description: $("#description").val(),
+                responsibilities: $("#responsibilities").val(),
+                requirements: $("#requirements").val(),
+                contactEmail: $("#contactEmail").val(),
+                tags: choiceTags
+            })
+        })
+            .then(function (response) {
+                response.json().then(function (data) {
+                    setTimeout( function(){
+                        if (response.status !== 200) {
+                            for(var i in data.errors){
+                                let idErr = `error_${i}`;
+                                $('#'+idErr).addClass("d-block")
+                                $('#'+idErr).text(data.errors[i])
+                            }
+                            $("#btnSubmit").attr("disabled", false);
+                        } else {
+                            location.href = `/checkout?token=${data.data}`
+                            $("#btnSubmit").attr("disabled", false);
+                        }
+
+                        $("#btnSubmit").attr("disabled", false);
+
+                        return data
+                    },500)
+                })
+
+            })
+            .catch(function (err) {
+                setTimeout( function() {
+                    $("#btnSubmit").attr("disabled", false);
+                }, 500)
+            })
+    });
 </script>
 </body>
 </html>

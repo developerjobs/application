@@ -95,7 +95,10 @@ typings/
 # End of https://www.gitignore.io/api/node
 
 src/config/db.ts
-
+src/config/linkedin.ts
+src/config/stripe.ts
+src/config/mail.ts
+src/config/jwt.ts
 .idea
 
 

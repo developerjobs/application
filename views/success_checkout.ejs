@@ -54,7 +54,19 @@
 <div class="container">
     <div class="jumbotron jumbotron-fluid mt-5">
         <div class="container">
-            <h1 class="display-4 text-center"><%= message %></h1>
+            <p class="text-center display-1"><i class="fa fa-check-circle text-success"></i></p>
+            <p class="text-center display-4">Confirmation de votre paiement</p>
+            <h1 class="display-10 text-center"></h1>
+
+            <h5 class="text-center">
+                Un reçu vous a été envoyée à votre email de facturation
+            </h5>
+
+            <h6 class="text-center mt-4">
+                <div class="mt-2 mb-2">Vous pouvez voir annonce <a href="<%= jobViewProfileUrl%>">ici</a></div>
+                <br>
+                <%= message %>
+            </h6>
             <div class="text-center">
                 <a class="btn btn-info btn-md mt-4" href="/">Acceuil</a>
             </div>
@@ -71,8 +83,6 @@
         <p  class="text-center"><small><i class="fa fa-phone"></i> +33642561130</small></p>
     </div>
 </footer>
-
-
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
