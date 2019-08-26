@@ -8,7 +8,6 @@ import {jobsTask} from "./cron/jobs";
 
 // Application config
 import {globalConfig} from "./config/global";
-const PORT = globalConfig.dev.port;
 
 // CRON tasks (send email for emailing list every 168 H emailing)
 emailingTask.start();
@@ -23,6 +22,8 @@ App
             .render("error", {message: "Une erreur est survenue, veuillez réessayer plus tard" })
     });
 
+
+const PORT = process.env.PORT || globalConfig.dev.port;
 App.listen(PORT, () => {
     console.log('Express server listening on port ' + PORT);
 });

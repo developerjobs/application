@@ -20,7 +20,7 @@ export let formValidation = (req: express.Request, res: express.Response, next) 
         errorsFormat["position"] = "Position de l'offre non indiquée"
     }
 
-    if (!emailContact || validateEmail(emailContact) === false) {
+    if (emailContact.length > 0 && validateEmail(emailContact) === false) {
         errorsFormat["emailContact"] = "Email de contact indiqué est invalide"
     }
 

@@ -15,7 +15,7 @@ const AnnouncesArchive =
         requirements: {type: Sequelize.TEXT, defaultValue: ""},
         companyName: {type: Sequelize.STRING},
         companyUrl: {type: Sequelize.STRING},
-        contactEmail: {type: Sequelize.STRING},
+        contactEmail: {type: Sequelize.STRING, allowNull: false},
         tags: {
             type: Sequelize.STRING,
             defaultValue: ""

@@ -1,17 +1,58 @@
 'use strict';
-import {Sequelize} from "sequelize-typescript";
+const Sequelize = require('sequelize');
 
-export default {
+// local wamp
+/*
+const dbConf = {
     dialect: "",
     user: "",
     pass: "",
     host: "",
     port: "",
-    dbName: ""
-}
+    dbName: "",
+};
+*/
+
+
+
+// dev distant (local distant) with Google Cloud SQL proxy using real instance (DEVELOPEMENT)!
+// run the proxy before : ./cloud_sql_proxy -instances=<INSTANCE>=tcp:3306 (INSTANCE => information SQL cloud  dans "se connecter")
+// run mysql : E:\wamp64\bin\mysql\mysql5.7.19\bin> ./mysql -u <user_create_in_sql_cloud> -h 127.0.0.1 -p
+/*
+const dbConf = {
+    dialect: "", //mysql
+    user: "", // SqlCLOUD  user
+    pass: "", // SqlCLOUD pass user
+    host: "", // 127.0.0.1
+    port: "", // 3306
+    dbName: "", // db name from dev instance sql cloud
+    dialectOptions: {
+    socketPath: "" // cloud instance
+    }
+};
+*/
+
+
+// distance production DB with Google Cloud SQL proxy using real instance (PRODUCTION)!
+/*
+const dbConf = {
+    dialect: "", //mysql
+    user: "", // SqlCLOUD  user
+    pass: "", // SqlCLOUD pass user
+    host: "", // 127.0.0.1
+    port: "", // 3306
+    dbName: "", // db name from production instance sql cloud
+    dialectOptions: {
+    socketPath: "" // cloud instance
+    }
+};
+*/
+
+
 
 let Db = {
     instance: new Sequelize(`${dbConf.dialect}://${dbConf.user}:${dbConf.pass}@${dbConf.host}:${dbConf.port}/${dbConf.dbName}`)
 };
+
 
 export default Db;

@@ -8,6 +8,6 @@ export const globalConfig = {
     },
     prod: {
         port : null,
-        url: `http://localhost:3000`
+        url: `https://developerjobs-251011.appspot.com`
     },
 };

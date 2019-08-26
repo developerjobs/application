@@ -99,6 +99,7 @@ src/config/linkedin.ts
 src/config/stripe.ts
 src/config/mail.ts
 src/config/jwt.ts
+dist
 .idea
 
 
