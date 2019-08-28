@@ -49,10 +49,72 @@ const dbConf = {
 */
 
 
-
+ // * Uncomment cette connection string pour les tests en local / gcloud proxy
+/*
 let Db = {
     instance: new Sequelize(`${dbConf.dialect}://${dbConf.user}:${dbConf.pass}@${dbConf.host}:${dbConf.port}/${dbConf.dbName}`)
 };
+*/
+
+
+// Uncomment cette configuration avant  chaque deploy (permet la connection à la db de production et ou de developpement)
+// INSTANCE GCLOUD DEVELOPEMENT
+/*
+let Db = {
+    instance: new Sequelize(
+        "developerjobs", // DB name (SQL Cloud)
+        "sylvain", // DB user name (SQL CLOUD)
+        "91vigneux", // DB password (SQL Cloud)
+        {
+            dialect: 'mysql', // dialect (mysql or postgre
+            // e.g. host: '/cloudsql/my-awesome-project:us-central1:my-cloud-sql-instance'
+            host: '',
+            pool: { // if you need pool
+                max: 5,
+                min: 0,
+                acquire: 30000,
+                idle: 10000
+            },
+            dialectOptions: {
+                // e.g. socketPath: '/cloudsql/my-awesome-project:us-central1:my-cloud-sql-instance'
+                // same as host string above
+                socketPath: ''
+            },
+            logging: false,
+            operatorsAliases: false
+        }
+    )
+};
+*/
+
+// INSTANCE GCLOUD PRODUCTION
+/*
+let Db = {
+    instance: new Sequelize(
+        "developerjobs", // DB name (SQL Cloud)
+        "sylvain", // DB user name (SQL CLOUD)
+        "91vigneux", // DB password (SQL Cloud)
+        {
+            dialect: 'mysql', // dialect (mysql or postgre
+            // e.g. host: '/cloudsql/my-awesome-project:us-central1:my-cloud-sql-instance'
+            host: '',
+            pool: { // if you need pool
+                max: 5,
+                min: 0,
+                acquire: 30000,
+                idle: 10000
+            },
+            dialectOptions: {
+                // e.g. socketPath: '/cloudsql/my-awesome-project:us-central1:my-cloud-sql-instance'
+                // same as host string above
+                socketPath: ''
+            },
+            logging: false,
+            operatorsAliases: false
+        }
+    )
+};
+*/
 
 
 export default Db;

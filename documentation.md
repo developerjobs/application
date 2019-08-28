@@ -32,7 +32,7 @@ I - Databases
    
    
    
-// Deploiement
+// Deploiement + base de données de dev / production CLOUD SIDE
 
 1) Set le projet : gcloud config set project PROJECT_ID (unset =>gcloud config unset project)
 
@@ -42,8 +42,10 @@ Cependant, nous utilisons TYPESCRIPT il faut donc au préalable build le projet,
 
 2 méthodes : 
 Build à la fin 
+Avant de build bien vérifier que la bonne configuration est choisi pour la connection à la db /config/db.ts
+(en effet une chaine de connection ne fonctionnera pas avec instance sql cloud, bien chargé la deuxieme manière et choisir db dev ou de prod)
 => npm run build 
-=> gcloud app deploy
+=> gcloud app deploy 
 
 OU directement on peut faire 
 
