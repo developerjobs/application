@@ -42,7 +42,7 @@ Cependant, nous utilisons TYPESCRIPT il faut donc au préalable build le projet,
 
 2 méthodes : 
 Build à la fin 
-Avant de build bien vérifier que la bonne configuration est choisi pour la connection à la db /config/db.ts
+Avant de build bien vérifier que la bonne configuration est choisi pour la connection à la db /config/db.ts ET POUR stripe bien mettre la cle de production LIVE PAS DE TEST!
 (en effet une chaine de connection ne fonctionnera pas avec instance sql cloud, bien chargé la deuxieme manière et choisir db dev ou de prod)
 => npm run build 
 => gcloud app deploy 
