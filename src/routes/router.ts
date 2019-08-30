@@ -8,6 +8,7 @@ import {Models} from '../models/index';
 import {formValidation} from "../controllers/formJobValidationController"
 import {formValidationEmailing} from "../controllers/formMailingListeValidationController";
 import configuration from "../config/jwt";
+
 let Router = express.Router();
 
 import stripeConf from "../config/stripe";
@@ -68,7 +69,10 @@ Router.get('/', dbInstanceMiddleware, async (req, res, next) => {
         .findAll({
             order: [
                 ["createdAt", "DESC"]
-            ]
+            ],
+            where: {
+                visibility: true
+            }
         })
         .then(async (data) => {
             if (data.length === 0) {
@@ -112,14 +116,14 @@ Router.get('/', dbInstanceMiddleware, async (req, res, next) => {
 
                 try {
                     let lastestJobs = [];
-                    const lastestJobRows = await Db.instance.query("SELECT * FROM `announces` ORDER BY createdAt LIMIT 5");
-                    for( let x in lastestJobRows){
+                    const lastestJobRows = await Db.instance.query("SELECT * FROM `announces`  WHERE visibility = 1 ORDER BY createdAt LIMIT 5");
+                    for (let x in lastestJobRows) {
                         lastestJobs.push(lastestJobRows[x]);
                     }
 
-                    res.render('home', {monthWithJobs: display, lastestJobs: lastestJobs });
+                    res.render('home', {monthWithJobs: display, lastestJobs: lastestJobs});
 
-                } catch(e){
+                } catch (e) {
                     res
                         .render("error", {message: "Oups une erreur est survenue"})
                 }
@@ -196,7 +200,10 @@ Router.get('/checkout/success', dbInstanceMiddleware, async (req, res, next) => 
                     res.render("error_checkout", {message: "Oups cette page n'existe pas."});
                 }
             } else {
-                res.render("success_checkout", {message: "Merci pour votre confiance !", jobViewProfileUrl: `/job/view/${decoded.jobId}`});
+                res.render("success_checkout", {
+                    message: "Merci pour votre confiance !",
+                    jobViewProfileUrl: `/job/view/${decoded.jobId}`
+                });
             }
         })
 
@@ -285,13 +292,13 @@ Router.get('/test2', dbInstanceMiddleware, async (req, res, next) => {
 
 
 Router
-    .get('/mailing/liste', async(req,res,next) => {
-       res.render("mailing_liste");
+    .get('/mailing/liste', async (req, res, next) => {
+        res.render("mailing_liste");
     });
 
 Router
-    .post('/mailing/liste', formValidationEmailing, async(req,res,next) => {
-        res.status(200).json({error:false, message: "Email added successfully"})
+    .post('/mailing/liste', formValidationEmailing, async (req, res, next) => {
+        res.status(200).json({error: false, message: "Email added successfully"})
     });
 
 Router.post('/create-charge', async (req, res, next) => {
@@ -310,6 +317,7 @@ Router.post('/create-charge', async (req, res, next) => {
                 receipt_email: emailReceipt,
             }, function (err, charge) {
                 if (err) {
+                    console.log("errr payment", err);
                     res
                         .render("error")
                 } else {
@@ -341,12 +349,23 @@ Router.post('/create-charge', async (req, res, next) => {
                                 .findByPk(billCreated.id)
                                 .then((bill) => {
                                     if (bill) {
-                                        res.status(200).json({
-                                            bill_success: "OK",
-                                            status: 200,
-                                            payment_error: false,
-                                            jobProfilUrl: `/job/view/${jobId}`
-                                        })
+                                        Models
+                                            .Announces
+                                            .update(
+                                                {visibility: true}, //what going to be updated
+                                                {where: {id: jobId}} // where clause
+                                            )
+                                            .then(result => {
+                                                res.status(200).json({
+                                                    bill_success: "OK",
+                                                    status: 200,
+                                                    payment_error: false,
+                                                    jobProfilUrl: `/job/view/${jobId}`
+                                                })
+                                            })
+                                            .catch(error => {
+                                                res.render("error", {message: "Une erreur est survenue, veuillez réessayer plus tard"})
+                                            });
                                     } else {
                                         res.render("error", {message: "Une erreur est survenue, veuillez réessayer plus tard"})
                                     }
@@ -375,8 +394,13 @@ Router.get('/job/view/:jobId', async (req, res, next) => {
         .findByPk(jobId)
         .then((job) => {
             if (job) {
-                res
-                    .render("jobDisplay", {job: job})
+                if (job.visibility !== true) {
+                    res
+                        .render("error", {message: "Oups, cette offre n'existe pas :("})
+                } else {
+                    res
+                        .render("jobDisplay", {job: job})
+                }
             } else {
                 res
                     .render("error", {message: "Oups, cette offre n'existe pas :("})
@@ -392,7 +416,7 @@ Router.get('/job/view/:jobId', async (req, res, next) => {
 });
 
 Router
-    .get('/mailing/liste/thanks', async(req,res,next) => {
+    .get('/mailing/liste/thanks', async (req, res, next) => {
         res.render("mailing_list_thanks")
     });
 
