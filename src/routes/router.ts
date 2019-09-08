@@ -15,6 +15,7 @@ import stripeConf from "../config/stripe";
 import {globalConfig} from "../config/global";
 import Db from "../config/db";
 import {config} from "rxjs/index";
+import * as path from "path";
 
 const jwt = require('jsonwebtoken');
 
@@ -386,6 +387,12 @@ Router.post('/create-charge', async (req, res, next) => {
     }
 });
 
+// for Google indexation
+Router.get('/sitemap.xml', async(req,res,next) => {
+    res.contentType('application/xml');
+    res.sendFile(path.resolve('sitemap.xml'));
+
+});
 Router.get('/job/view/:jobId', async (req, res, next) => {
     let jobId = req.params.jobId;
 
